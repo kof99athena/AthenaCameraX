@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+<!--6.  현재 상황을 나타나는 텍스트 띄우기-->
+    <solid android:color="@color/white"/>
+    <corners android:radius="200dp"/>
+
+</shape>
