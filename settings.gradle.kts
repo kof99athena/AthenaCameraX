@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "CameraTest"
 include(":app")
+include(":face_recognition")

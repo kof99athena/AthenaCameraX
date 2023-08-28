@@ -21,8 +21,9 @@ class MainActivity : AppCompatActivity() {
             //8. START 버튼에 리스너 달기
             startDetectButton.setOnClickListener {
             it.isVisible = false //버튼을 누르면 안보이게 된다.
-
             }
+
+            //9. 앱모듈 만들기 : face_recognition
         }
 
     }
