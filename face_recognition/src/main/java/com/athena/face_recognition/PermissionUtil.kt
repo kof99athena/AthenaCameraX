@@ -1,5 +1,6 @@
 package com.athena.face_recognition
 
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
@@ -18,6 +19,7 @@ object PermissionUtil {
                 it //너가 받은 it 즉 퍼미션
             )== PackageManager.PERMISSION_DENIED){
                 //퍼미션 안받았으면 false
+
                 return false
             }
         } //forEach문
@@ -27,7 +29,7 @@ object PermissionUtil {
     } //checkPermission method
 
     //22. 체크 완료 했으면 퍼미션 요구해야징
-    fun requestPermission(activity:Activity, permissionList: List<String>){
+    fun requestPermission(activity:Activity , permissionList: List<String>){
         ActivityCompat.requestPermissions(activity,permissionList.toTypedArray(),1)
         //request 코드 일단 아무거나 넣기, 나중에는 사용처에 맞게 넣어야함..
     }

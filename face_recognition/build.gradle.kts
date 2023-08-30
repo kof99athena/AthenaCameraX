@@ -53,4 +53,23 @@ dependencies {
 
     //11. 이후에 camera class를 하나 만든다.
 
+    //27. ML Kit : 얼굴 인식을 위한 기기 내 머신러닝 Vision API를 제공
+    //ML Kit는 얼굴 인식하고 윤곽을 가져오지만, 사람을 인식하진 못한다.
+    //그래서 사람인지 아닌지부터 판단해야한다.
+    //얼굴 특징 인식 및 위치찾기, 윤곽 가져오기, 표정인식, 동영상 프레임에서 얼굴 추적
+    implementation("com.google.mlkit:face-detection:16.1.5")
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

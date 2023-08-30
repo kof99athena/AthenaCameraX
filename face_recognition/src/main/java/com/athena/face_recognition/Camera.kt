@@ -118,10 +118,10 @@ class Camera(private val context:Context) : ActivityCompat.OnRequestPermissionsR
                 (Context as Activity).finish()
             }
         }
-    }
+    } //onRequestPermissionsResult method
 
 
-}
+}//class Camera
 
 
 
