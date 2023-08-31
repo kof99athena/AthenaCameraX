@@ -42,6 +42,9 @@ android {
 
 dependencies {
 
+    //49. 이제 진짜 앱모듈을 implementation해주기
+    implementation(project(":face_recognition"))
+
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)

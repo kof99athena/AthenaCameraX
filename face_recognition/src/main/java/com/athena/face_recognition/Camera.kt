@@ -7,13 +7,17 @@ import android.content.pm.PackageManager
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ComponentActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
-import com.athena.cameratest.Manifest
+
+import com.athena.face_recognition.recognition.FaceAnalyzer
+import com.athena.face_recognition.recognition.FaceAnalyzerListener
 import com.google.common.util.concurrent.ListenableFuture
 import java.lang.Exception
 import java.util.concurrent.Executors
@@ -51,9 +55,19 @@ class Camera(private val context:Context) : ActivityCompat.OnRequestPermissionsR
     //15.
     private var cameraExecutor = Executors.newSingleThreadExecutor()
 
+    //43. 이제 실제 이 함수들을 메인에 연결하고 뷰에 노출을 시키자.
+    private var listener : FaceAnalyzerListener?=null
+
+
+
     //16. 메인액티비티에서 layout을 받아오기 - 여기에 프리뷰를 설정한다.
     //우리로 따지면 만들어둔 framelayout
-    fun initCamera(layout: ViewGroup){
+    fun initCamera(layout: ViewGroup, listener: FaceAnalyzerListener){
+        //44. 파라미터에 listener 받아오기
+        //45. 리스너 받아오고
+        this.listener = listener
+
+
         previewView = PreviewView(context)
         layout.addView(previewView)
 
@@ -79,6 +93,9 @@ class Camera(private val context:Context) : ActivityCompat.OnRequestPermissionsR
             .also { providerFuture ->
                 providerFuture.addListener({
                   //실제 프리뷰를 start시키는 메소드를 넣어줘야한다.
+
+                    //46.
+                    startPreview(context)
                 }, ContextCompat.getMainExecutor(context))
             }
     }//openPreview method
@@ -95,6 +112,44 @@ class Camera(private val context:Context) : ActivityCompat.OnRequestPermissionsR
             e.stackTrace
         }
     }//startPreview method
+
+
+    //47. 메인엑티비티에서 호출해서 실제 얼굴 인식 시키는 함수
+    fun startFaceDetect(){
+        val cameraProvider = cameraProviderFuture.get()
+        val faceAnalyzer = FaceAnalyzer((context as ComponentActivity).lifecycle , previewView, listener)
+        val analsisUseCase = ImageAnalysis.Builder()
+            .build()
+            .also {
+                it.setAnalyzer(
+                    cameraExecutor,
+                    faceAnalyzer
+                )
+            }
+        try {
+            cameraProvider.bindToLifecycle(
+                context as LifecycleOwner,
+                cameraSelector,
+                preview,
+                analsisUseCase
+            )
+        }catch (e : Exception){
+
+        }
+    }
+
+    //48. 그만
+    fun stopFaceDetect(){
+        try {
+            cameraProviderFuture.get().unbindAll()
+            previewView.releasePointerCapture()
+        }catch (e : Exception){
+
+        }
+    }
+
+    //49. 이제 이걸 앱 모듈에 붙이자
+
 
     //26. override해서 함수를 얻어오자. 권한을 획득했을때
     override fun onRequestPermissionsResult(
@@ -115,7 +170,7 @@ class Camera(private val context:Context) : ActivityCompat.OnRequestPermissionsR
             }else{
                 //아니면 토스트 띄워
                 Toast.makeText(context, "권한이 없습니다. ", Toast.LENGTH_SHORT).show()
-                (Context as Activity).finish()
+                (context as Activity).finish()
             }
         }
     } //onRequestPermissionsResult method
