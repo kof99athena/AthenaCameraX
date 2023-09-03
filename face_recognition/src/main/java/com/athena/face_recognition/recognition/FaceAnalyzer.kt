@@ -104,7 +104,7 @@ internal class FaceAnalyzer (
     override fun analyze(image: ImageProxy) {
         widthScaleFactor = preview.width.toFloat() / image.height
         heightScaleFactor = preview.height.toFloat() / image.width
-        detectFaces(image)
+        detectFaces(image) //얼굴을 인식하는 함수
     }
 
     private fun detectFaces (imageProxy: ImageProxy) {
