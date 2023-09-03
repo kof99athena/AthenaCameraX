@@ -26,6 +26,7 @@ internal class FaceAnalyzer (
 
     private var widthScaleFactor = 1.0f
     private var heightScaleFactor = 1.0f
+    // 1.0f와 1F는 동일한 값임
 
 
     //36. 얼굴인식 모드가 후방으로 되어있다. 이걸 좌우로 반전해주는 코드를 넣어야함.
