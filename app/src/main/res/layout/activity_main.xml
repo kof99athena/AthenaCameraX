@@ -20,8 +20,8 @@
 <!--    69. 내가 만든 FaceOverlayView를 메인에 붙여주자 -->
     <com.athena.cameratest.FaceOverlayView
         android:id="@+id/faceOverlayView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,13 +37,13 @@
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:text="START"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/rectangle_primary_r10"/>
+        android:background="@color/white"/>
 
 <!--    6. 현재 상황을 나타나는 텍스트 띄우기-->
     <TextView

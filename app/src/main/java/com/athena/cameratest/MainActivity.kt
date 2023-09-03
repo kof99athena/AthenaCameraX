@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(), FaceAnalyzerListener {
     override fun notDetect() {
 
         //71.
-        binding.faceOverlayView.reset()
+        binding.faceOverlayView
     }
 
     override fun detectProgress(progress: Float, message: String) {
