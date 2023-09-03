@@ -25,36 +25,33 @@ class MainActivity : AppCompatActivity(), FaceAnalyzerListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //7. 뷰바인딩 사용
-        binding = ActivityMainBinding.inflate(layoutInflater).apply {
-            setContentView(root)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+            setContentView(binding.root)
             //apply : 인스턴스를 새로 생성하고 특정변수에 할당하기 전에 초기화작업을 해준다 4
             //새로운 인스턴스를 반환한다.
+            //57.
+            setProgressText("시작하기 눌러주세요")
 
             //50.
             camera.initCamera(binding.cameraLayout, this@MainActivity)
 
-            //57.
-            setProgressText("시작하기 눌러주세요")
-
-
 
 
             //8. START 버튼에 리스너 달기
-            startDetectButton.setOnClickListener {
+            binding.startDetectButton.setOnClickListener {
             it.isVisible = false //버튼을 누르면 안보이게 된다.
+
+                //70.
+                binding.faceOverlayView.reset() //시작하기 버튼을 누르면 내가 그려둔 path를 초기화 한다.
 
                 //58.
                 camera.startFaceDetect()
-
 
                 //56.
                 setProgressText("얼굴을 보여주세요")
             }
 
             //9. 앱모듈 만들기 : face_recognition
-
-        }
-
 
 
     }
@@ -72,6 +69,8 @@ class MainActivity : AppCompatActivity(), FaceAnalyzerListener {
 
     override fun notDetect() {
 
+        //71.
+        binding.faceOverlayView.reset()
     }
 
     override fun detectProgress(progress: Float, message: String) {
@@ -79,10 +78,15 @@ class MainActivity : AppCompatActivity(), FaceAnalyzerListener {
         //55.
         setProgressText(message)
 
+        //80.
+        binding.faceOverlayView.setProgress(progress)
+
     }
 
     override fun faceSize(rectF: RectF, sizeF: SizeF, pointF: PointF) {
-
+      //72.
+        binding.faceOverlayView.setSize(rectF, sizeF, pointF)
+        //실질적으로 path를 실행하는걸 실시간으로 연출
     }
 
     //60. 권한받아왔을때 권한처리
@@ -94,7 +98,6 @@ class MainActivity : AppCompatActivity(), FaceAnalyzerListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         camera.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
-
 
 
     //52.

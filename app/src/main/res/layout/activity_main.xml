@@ -17,6 +17,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
+<!--    69. 내가 만든 FaceOverlayView를 메인에 붙여주자 -->
+    <com.athena.cameratest.FaceOverlayView
+        android:id="@+id/faceOverlayView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 <!--    5. 버튼 만들기-->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/startDetectButton"
