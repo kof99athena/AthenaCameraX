@@ -79,18 +79,6 @@ class FaceOverlayView @JvmOverloads constructor(
         drawProgress(canvas)
     }
 
-    //66.
-    fun drawOverlay(canvas: Canvas) {
-        canvas.drawRect(
-            0F,
-            0F,
-            canvas.width.toFloat(),
-            canvas.height.toFloat(),
-            backgroundPaint
-        )
-        canvas.drawPath(facePath, maskPaint)
-        canvas.drawPath(facePath, facePaint)
-    }
 
     //67. 얼굴인식 모드에서 위 아래가 작게 나오기때문에 offset을 임의로 추가
     fun setSize(rectF: RectF, sizeF: SizeF, pointF: PointF) {
@@ -136,8 +124,6 @@ class FaceOverlayView @JvmOverloads constructor(
         }.start()
     }
 
-
-
     //68.
     fun reset(){
         facePath.reset()
@@ -147,6 +133,24 @@ class FaceOverlayView @JvmOverloads constructor(
 
         invalidate()
     }
+
+
+
+
+    //66.
+    fun drawOverlay(canvas: Canvas) {
+        canvas.drawRect(
+            0F,
+            0F,
+            canvas.width.toFloat(),
+            canvas.height.toFloat(),
+            backgroundPaint
+        )
+        canvas.drawPath(facePath, maskPaint)
+        canvas.drawPath(facePath, facePaint)
+    }
+
+
 
 //    private val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
 //        color = Color.YELLOW

@@ -63,6 +63,7 @@ class Camera(private val context:Context) : ActivityCompat.OnRequestPermissionsR
     //16. 메인액티비티에서 layout을 받아오기 - 여기에 프리뷰를 설정한다.
     //우리로 따지면 만들어둔 framelayout
     fun initCamera(layout: ViewGroup, listener: FaceAnalyzerListener){
+        val context = layout.context
         //44. 파라미터에 listener 받아오기
         //45. 리스너 받아오고
         this.listener = listener
