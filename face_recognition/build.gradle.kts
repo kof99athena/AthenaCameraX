@@ -37,13 +37,15 @@ android {
 dependencies {
 
     implementation(libs.core.ktx)
-//    implementation(libs.appcompat)
-//    implementation(libs.material)
-//    testImplementation(libs.junit)
-//    androidTestImplementation(libs.androidx.test.ext.junit)
-//    androidTestImplementation(libs.espresso.core)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 
     //10. 의존성을 추가한다. camera core 등
+
+
     val camerax_version : String = "1.2.1"
     implementation("androidx.camera:camera-core:${camerax_version}")
     implementation("androidx.camera:camera-camera2:${camerax_version}")

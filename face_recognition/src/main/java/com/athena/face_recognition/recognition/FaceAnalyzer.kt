@@ -24,8 +24,8 @@ internal class FaceAnalyzer (
     private val listener : FaceAnalyzerListener?
 ): ImageAnalysis.Analyzer {
 
-    private var widthScaleFactor = 1F
-    private var heightScaleFactor = 1F
+    private var widthScaleFactor = 1.0f
+    private var heightScaleFactor = 1.0f
 
 
     //36. 얼굴인식 모드가 후방으로 되어있다. 이걸 좌우로 반전해주는 코드를 넣어야함.
@@ -40,7 +40,7 @@ internal class FaceAnalyzer (
         .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE) //정확도 가장 우선시
         .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL) // 윤곽선 받아오기 추가
         .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL) //표정 받아오기
-        .setMinFaceSize(0.4F) //최소 얼굴 크기
+        .setMinFaceSize(0.4f) //최소 얼굴 크기
         .build()
 
     private val detector = FaceDetection.getClient(options)
@@ -104,6 +104,7 @@ internal class FaceAnalyzer (
     override fun analyze(image: ImageProxy) {
         widthScaleFactor = preview.width.toFloat() / image.height
         heightScaleFactor = preview.height.toFloat() / image.width
+        detectFaces(image)
     }
 
     private fun detectFaces (imageProxy: ImageProxy) {

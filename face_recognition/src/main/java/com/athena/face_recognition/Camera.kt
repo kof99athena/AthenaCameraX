@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
@@ -80,6 +81,7 @@ class Camera(private val context:Context) : ActivityCompat.OnRequestPermissionsR
     //23. PermissonUtil을 가지고 퍼미션 체크하기
     private fun permissonCheck(context: Context){
         val permissionList = listOf(Manifest.permission.CAMERA)
+
         if (!PermissionUtil.checkPermission(context,permissionList)){
             //퍼미션 안받아오면 PermissionUtil이 리퀘스트하게 해줭
             PermissionUtil.requestPermission(context as Activity, permissionList)
@@ -107,10 +109,12 @@ class Camera(private val context:Context) : ActivityCompat.OnRequestPermissionsR
         try {
             cameraProvider.unbindAll()
             cameraProvider.bindToLifecycle(
-                context as LifecycleOwner,cameraSelector,preview
+                context as LifecycleOwner,
+                cameraSelector,
+                preview
             )
         }catch(e:Exception) {
-            e.stackTrace
+            Log.e("Camera","binding failed",e)
         }
     }//startPreview method
 
@@ -119,7 +123,7 @@ class Camera(private val context:Context) : ActivityCompat.OnRequestPermissionsR
     fun startFaceDetect(){
         val cameraProvider = cameraProviderFuture.get()
         val faceAnalyzer = FaceAnalyzer((context as ComponentActivity).lifecycle , previewView, listener)
-        val analsisUseCase = ImageAnalysis.Builder()
+        val analysisUseCase  = ImageAnalysis.Builder()
             .build()
             .also {
                 it.setAnalyzer(
@@ -132,10 +136,10 @@ class Camera(private val context:Context) : ActivityCompat.OnRequestPermissionsR
                 context as LifecycleOwner,
                 cameraSelector,
                 preview,
-                analsisUseCase
+                analysisUseCase
             )
         }catch (e : Exception){
-
+            Log.e("Camera", "binding failed", e)
         }
     }
 
@@ -145,7 +149,7 @@ class Camera(private val context:Context) : ActivityCompat.OnRequestPermissionsR
             cameraProviderFuture.get().unbindAll()
             previewView.releasePointerCapture()
         }catch (e : Exception){
-
+            Log.e("Camera", "binding failed", e)
         }
     }
 
@@ -168,6 +172,7 @@ class Camera(private val context:Context) : ActivityCompat.OnRequestPermissionsR
             if (flag){
                 //만약 true면 프리뷰를 열고
                 openPreview()
+
             }else{
                 //아니면 토스트 띄워
                 Toast.makeText(context, "권한이 없습니다. ", Toast.LENGTH_SHORT).show()
