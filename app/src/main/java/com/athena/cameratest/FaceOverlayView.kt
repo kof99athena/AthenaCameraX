@@ -80,7 +80,7 @@ class FaceOverlayView @JvmOverloads constructor(
     }
 
     //66.
-    private fun drawOverlay(canvas: Canvas) {
+    fun drawOverlay(canvas: Canvas) {
         canvas.drawRect(
             0F,
             0F,

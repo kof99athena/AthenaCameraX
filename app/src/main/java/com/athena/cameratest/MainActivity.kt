@@ -17,7 +17,7 @@ import com.athena.face_recognition.recognition.FaceAnalyzerListener
 class MainActivity : AppCompatActivity(), FaceAnalyzerListener {
 
     //7. 뷰바인딩 사용
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     //50.
     private val camera = Camera(this)
@@ -26,32 +26,31 @@ class MainActivity : AppCompatActivity(), FaceAnalyzerListener {
         super.onCreate(savedInstanceState)
         //7. 뷰바인딩 사용
         binding = ActivityMainBinding.inflate(layoutInflater)
-            setContentView(binding.root)
-            //apply : 인스턴스를 새로 생성하고 특정변수에 할당하기 전에 초기화작업을 해준다 4
-            //새로운 인스턴스를 반환한다.
-            //57.
-            setProgressText("시작하기 눌러주세요")
+        setContentView(binding.root)
+        //apply : 인스턴스를 새로 생성하고 특정변수에 할당하기 전에 초기화작업을 해준다 4
+        //새로운 인스턴스를 반환한다.
+        //57.
+        setProgressText("시작하기 눌러주세요")
 
-            //50.
-            camera.initCamera(binding.cameraLayout, this@MainActivity)
+        //50.
+        camera.initCamera(binding.cameraLayout, this@MainActivity)
 
 
-
-            //8. START 버튼에 리스너 달기
-            binding.startDetectButton.setOnClickListener {
+        //8. START 버튼에 리스너 달기
+        binding.startDetectButton.setOnClickListener {
             it.isVisible = false //버튼을 누르면 안보이게 된다.
 
-                //70.
-                binding.faceOverlayView.reset() //시작하기 버튼을 누르면 내가 그려둔 path를 초기화 한다.
+            //70.
+            binding.faceOverlayView.reset() //시작하기 버튼을 누르면 내가 그려둔 path를 초기화 한다.
 
-                //58.
-                camera.startFaceDetect()
+            //58.
+            camera.startFaceDetect()
 
-                //56.
-                setProgressText("얼굴을 보여주세요")
-            }
+            //56.
+            setProgressText("얼굴을 보여주세요")
+        }
 
-            //9. 앱모듈 만들기 : face_recognition
+        //9. 앱모듈 만들기 : face_recognition
 
 
     }
@@ -70,7 +69,7 @@ class MainActivity : AppCompatActivity(), FaceAnalyzerListener {
     override fun notDetect() {
 
         //71.
-        binding.faceOverlayView
+        binding.faceOverlayView.reset()
     }
 
     override fun detectProgress(progress: Float, message: String) {
@@ -84,7 +83,7 @@ class MainActivity : AppCompatActivity(), FaceAnalyzerListener {
     }
 
     override fun faceSize(rectF: RectF, sizeF: SizeF, pointF: PointF) {
-      //72.
+        //72.
         binding.faceOverlayView.setSize(rectF, sizeF, pointF)
         //실질적으로 path를 실행하는걸 실시간으로 연출
     }
@@ -101,13 +100,13 @@ class MainActivity : AppCompatActivity(), FaceAnalyzerListener {
 
 
     //52.
-    private fun reset(){
+    private fun reset() {
         binding.startDetectButton.isVisible = true
 
     }
 
     //54.
-    private fun setProgressText(text:String){
+    private fun setProgressText(text: String) {
         TransitionManager.beginDelayedTransition(binding.root)
         binding.progressTextView.text = text
     }
